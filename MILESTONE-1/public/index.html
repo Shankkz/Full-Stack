@@ -1,0 +1,105 @@
+<!-- TrackWise: Relational Expense Analytics Platform - Modern UI Rewrite -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrackWise - Relational Expense Analytics Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header class="app-header">
+    <h1><i class="fas fa-wallet"></i> TrackWise</h1>
+    <div class="header-right" id="quick-stats"></div>
+    <button id="dark-toggle" title="Toggle Dark Mode"><i class="fas fa-moon"></i></button>
+  </header>
+  <div class="main-content">
+    <aside class="add-expense-card">
+      <h3><i class="fas fa-plus-circle"></i> Quick Add</h3>
+      <form class="compact-form" id="expense-form" autocomplete="off">
+        <div class="form-row">
+          <input type="number" id="amount" placeholder="₹ Amount" min="0.01" step="0.01" required>
+          <select id="category" required>
+            <option value="">Category</option>
+            <option value="Food">🍔 Food</option>
+            <option value="Transport">🚗 Transport</option>
+            <option value="Entertainment">🎬 Entertainment</option>
+            <option value="Bills">💡 Bills</option>
+            <option value="Shopping">🛒 Shopping</option>
+            <option value="Health">🏥 Health</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <input type="text" id="desc" placeholder="Description" maxlength="100" required>
+          <input type="date" id="date" required>
+        </div>
+        <button type="submit" id="add-expense-btn">
+          <i class="fas fa-plus"></i> Add Expense
+        </button>
+      </form>
+    </aside>
+    <main class="main-panel">
+      <section class="charts-section">
+        <div class="section-header">
+          <h2><i class="fas fa-chart-line"></i> Analytics Overview</h2>
+        </div>
+        <div class="charts-grid">
+          <div class="chart-card">
+            <h3><i class="fas fa-chart-pie"></i> By Category</h3>
+            <canvas id="expenseChart"></canvas>
+          </div>
+          <div class="chart-card">
+            <h3><i class="fas fa-chart-bar"></i> Monthly Totals</h3>
+            <canvas id="monthlyChart"></canvas>
+          </div>
+          <div class="chart-card">
+            <h3><i class="fas fa-chart-area"></i> Monthly Flow</h3>
+            <canvas id="flowChart"></canvas>
+          </div>
+        </div>
+      </section>
+      <section class="filters-bar">
+        <input type="text" id="search" placeholder="🔍 Search transactions...">
+        <select id="filter-category">
+          <option value="">All Categories</option>
+          <option value="Food">Food</option>
+          <option value="Transport">Transport</option>
+          <option value="Entertainment">Entertainment</option>
+          <option value="Bills">Bills</option>
+          <option value="Shopping">Shopping</option>
+          <option value="Health">Health</option>
+          <option value="Other">Other</option>
+        </select>
+        <select id="sort">
+          <option value="date-desc">Newest</option>
+          <option value="date-asc">Oldest</option>
+          <option value="amount-desc">Highest Amount</option>
+          <option value="amount-asc">Lowest Amount</option>
+        </select>
+      </section>
+      <section class="expenses-section">
+        <div class="section-header">
+          <h2><i class="fas fa-list"></i> Recent Transactions</h2>
+          <div id="live-total" class="live-total"></div>
+        </div>
+        <div id="stats" class="stats-grid"></div>
+        <ul id="list"></ul>
+        <div id="no-expenses" class="empty-state" style="display: none;">
+          <i class="fas fa-inbox"></i>
+          <p>No transactions yet. Add your first one!</p>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div id="loading" class="loading-overlay" style="display: none;">
+    <div class="spinner"></div>
+    <p>Loading...</p>
+  </div>
+  <div id="toast" class="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>
